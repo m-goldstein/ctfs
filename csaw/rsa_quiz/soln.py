@@ -124,28 +124,3 @@ rchunks = [raa[i:i+8] for i in range(0, len(raa), 8)]
 rchunks = [int(e,2) for e in rchunks]
 rchars = [chr(e) for e in rchunks]
 print('rgot: {}'.format(''.join(e for e in rchars)))
-#print(buf)
-#pt = list('flag{')
-#idx = len(pt)
-#done = False
-
-#while not done:
-#    try:
-#        pt_enc = (''.join(e for e in pt)).encode()
-#        sock.send(pt_enc+b'\n')
-#        time.sleep(.5)
-#        buf = sock.recv(1024)
-#        print('buf: {}'.format(buf))
-#        if b'(yes/no)' in buf:
-#            print('sending... yes')
-#            done = False
-#            buf = buf.split(b'\r\n')
-#            print('buf: {}'.format(buf))
-#            #padding = int(buf[1].decode()[-1])
-#            sock.send(b'yes'+b'\n')
-#        else:
-#            print('buf: {}'.format(buf))
-#            #sock.send(b'0'+b'\n')
-#    except Exception as e:
-#        print('exception: {}'.format(e))
-#        done = True
