@@ -53,7 +53,7 @@ def rot(s, k):
     for i in range(len(s)):
         e = s[i]
         is_upper = e.isupper()
-        if e in [' ','.','_']:
+        if e in [' ','.','_','-','"',"'"]:
             continue
         idx = alphabet.index(e.lower())
         new_idx = (idx+k)%len(alphabet)
@@ -78,6 +78,7 @@ while not done:
     try:
         print(binary.recvuntil(bytes("mean?", "utf-8")))
         more = (binary.recvuntil(bytes(">>", "utf-8"))) # Morse code
+        #print(more)
         morseCode = str(more, 'utf-8').replace('>>' ,"")
         morseCode = morseCode.replace('\n', "").replace('\r', '')
         words = morseCode.split('/')
