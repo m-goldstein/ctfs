@@ -8,13 +8,14 @@ password = 'blah'
 try:
     while True:
         r = requests.post(host.format(port) + endpoints['token'], json={'password':password})
-        regexp = rstr.xeger(r.text[r.text.find('pwReq')+8:r.text.find('$')+1])
+        resp = json.loads(r.text)
+        regexp = rstr.xeger(resp['pwReq'])
         r = requests.post(host.format(port) + endpoints['token'], json={'password':regexp})
         if 'signedPassword' in r.text:
-            aa = json.loads(r.text)
+            resp = json.loads(r.text)
             pw_int = int.from_bytes(regexp.encode(), 'big')
-            key = int(aa['signedPassword'])^pw_int
-            r = requests.post(host.format(port) + endpoints['state'],json={'signedPassword':key^1337})
+            key = int(resp['signedPassword'])^pw_int^1337
+            r = requests.post(host.format(port) + endpoints['state'],json={'signedPassword':key})
             if 'port' in r.text:
                 jsonp = json.loads(r.text)
                 r = requests.get(host.format(jsonp['port'])+endpoints['flag']+'?token={}'.format(jsonp['token']))
